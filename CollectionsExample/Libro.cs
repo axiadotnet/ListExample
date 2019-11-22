@@ -9,23 +9,36 @@ namespace CollectionsExample
     {
         public string Title { get; set; }
         public string Author { get; set; }
-        public int PageNuber { get; set; }
+        public int PageNumber { get; set; }
 
-        public Libro(string title, string author, int pageNuber)
+        public static int Discount { get; set; } = 0;
+
+
+        public Libro(string title, string author, int pageNumber)
         {
             Title = title;
             Author = author;
-            PageNuber = pageNuber;
+            PageNumber = pageNumber;
         }
 
         public override string ToString()
         {
-            return Title + " " + Author + " " + PageNuber;
+            return Title + " " + Author + " " + PageNumber;
         }
 
         public int CompareTo([AllowNull] Libro other)
         {
             return Title.CompareTo(other.Title);
+        }
+
+        public double getReadingTime()
+        {
+            return PageNumber / 30 * 3600;
+        }
+
+        public static double getReadingTime(int pageNumber)
+        {
+            return pageNumber / 30 * 3600;
         }
     }
 
@@ -48,15 +61,21 @@ namespace CollectionsExample
                 case LibroOrderType.Author:
                     return l1.Author.CompareTo(l2.Author);
                 case LibroOrderType.Pages:
-                    return l1.PageNuber.CompareTo(l2.PageNuber);
+                    return l1.PageNumber.CompareTo(l2.PageNumber);
                 default:
                     return l1.Title.CompareTo(l2.Title);
             }
         }
+
+
+
     }
 
     enum LibroOrderType:int
     {
         Title = 0, Author = 1, Pages = 2
     }
+
+
+
 }
